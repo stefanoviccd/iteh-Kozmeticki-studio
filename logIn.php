@@ -14,7 +14,7 @@ $odgovor=User::logInUser($uname, $upass, $conn);
 if($odgovor->num_rows==1){
     echo "<script> console.log('Uspesno ste se prijavili!') </script>";
     $_SESSION['user_id']=$korisnik->id;
-    header('Location: index.html');
+    header('Location: index.php');
     exit();
 }
 else{
