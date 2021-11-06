@@ -27,9 +27,13 @@ class Treatment{
     $query="INSERT INTO treatment(clientsName, clientsPhone, date, time,treatment_type )  VALUES ('$tr->clientsName', '$tr->clientsPhone', '$tr->date', '$tr->time','$tr->treatment_type');";
     return $conn->query($query);
   }
-  public static function getAllTreatment( mysqli $conn)
+  public static function getAllTreatment( mysqli $conn, $column=null,$order='ASC')
   {
-    $query="select * from treatment;";
+    if($column==null){
+    $query="select * from treatment;";}
+    else{
+      $query='select * from treatmentORDER BY ' .  $column . ' ' . $order;
+    }
     return $conn->query($query);
   }
   public static function getByValue( $value, mysqli $conn)

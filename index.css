@@ -1,3 +1,5 @@
+
+
 .btn-zakazi{
     width: 200px;
     height: 50px;
@@ -47,4 +49,12 @@ select{
 }
 .button-container {
    height: 100px !important;
+}
+#srt{
+    margin: 5px !important;
+}
+
+.griddiv{
+    display: grid !important;
+    grid-template-columns: 50% 50%;
 }

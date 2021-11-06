@@ -1,3 +1,4 @@
+
 <?php
 include "dbBroker.php";
 include "Treatment.php";
@@ -6,7 +7,7 @@ extract($_POST);
 
  
   $num=1;
-    $table='<table class="table" style="background-color:#a8edea;">
+    $table='<table class="table " id="sortTable" style="background-color:#a8edea;"  id="dtOrderExample">
     <thead>
       <tr>
       <th scope="col">Sl no</th>
@@ -46,8 +47,8 @@ extract($_POST);
         <td>'.$time.'</td>
         <td>'.$type_name.'</td>
         <td style="padding-left: 20px !important;">
-        <button class="btn-update" onclick="getDetails('.$id.')" style="width:80px !important; height:30px;background-color:#00cec3; margin-top:1px; color:white;">Update</button>
-        <button class="btn-delete" onclick="deleteUser('.$id.')" style="width:80px !important;height:30px; background-color:#00cec3; margin-top:1px; color:white;">Delete</button>
+        <button class="btn-update"  type="button"  onclick="getDetails('.$id.')" style="width:80px !important; height:30px;background-color:#00cec3; margin-top:1px; color:white;">Update</button>
+        <button class="btn-delete"  style="width:80px !important;height:30px; background-color:#00cec3; margin-top:1px; color:white;" onclick="deleteTreatment('.$id.')">Delete</button>
        </td>
        <td> <button class="btn-delete" onclick="deleteUser('.$id.')" style="width:80px !important;height:30px; background-color:#fc578b; margin-top:1px; color:white;">Mark</button></td>
         

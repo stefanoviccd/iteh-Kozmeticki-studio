@@ -36,7 +36,7 @@ else{
 </head>
 <body>
       <!-- LOGN IN FORM by Omar Dsoky -->
-      <form method="POST" action="#">
+      <form method="POST" action="#" id="frmID">
         <!--   con = Container  for items in the form-->
         <div class="con">
         <!--     Start  header Content  -->

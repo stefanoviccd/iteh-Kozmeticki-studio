@@ -1,3 +1,4 @@
+
 function addTreatment(){
     var clientsName=$("#imeprezime").val();
     var date=$("#datum").val();
@@ -32,8 +33,8 @@ function addTreatment(){
 
     $req.fail(function(jqXHR, textStatus, errorThrown){
         console.error('Sledeca greska se desila> '+textStatus, errorThrown);
-    }
-    )};
+    } )
+};
     function displayData(query){
         var display=query;
         $.ajax({
@@ -49,4 +50,52 @@ function addTreatment(){
             }
         });
     }
+    function updateTreatment(){
+        var name=$("izmeniip").val();
+        var tel=$("#izmenitelefon").val();
+        var dat=$("#izmenidatum").val();
+        var vreme=$("#izmenivreme").val();
+        var id=$('#hidden').val();
+        var typeID=$('$izmenitrmn').val();
+   
     
+    
+        $.ajax({
+            url: "updateTreatment.php",
+            type: 'post',
+            data: {
+                'idSend': id,
+                'nameSend': name,
+                'telSend': tel,
+                'datSend': dat,
+                'timeSend': vreme,
+                'typeIDSend': typeID
+                
+            },
+            success:function(data,status){
+                displayData();
+                
+                
+    
+            },
+            
+        });
+       
+    
+    
+    }
+   function deleteTreatment(id){
+    $.ajax({
+        url: "deleteTreatment.php",
+        type: 'post',
+        data: {
+            'deleteSend': id
+        },
+        success: function(data, status){
+            // we want to display data in our html
+            displayData();
+
+        }
+    });
+
+   }
