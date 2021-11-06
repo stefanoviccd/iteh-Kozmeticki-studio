@@ -35,13 +35,16 @@ function addTreatment(){
         console.error('Sledeca greska se desila> '+textStatus, errorThrown);
     } )
 };
-    function displayData(query){
+    function displayData(sortingKey,query){
+        var srtKey=sortingKey;
         var display=query;
         $.ajax({
             url: "display.php",
             type: 'post',
             data: {
-                'displaySend': display
+                'displaySend': display,
+                'sortKey': srtKey
+                
             },
             success: function(data, status){
                 // we want to display data in our html
@@ -99,3 +102,4 @@ function addTreatment(){
     });
 
    }
+   

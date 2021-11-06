@@ -29,22 +29,24 @@ class Treatment{
   }
   public static function getAllTreatment( mysqli $conn, $column=null,$order='ASC')
   {
-    if($column==null){
+    if($column==null || $column==""){
     $query="select * from treatment;";}
     else{
-      $query='select * from treatmentORDER BY ' .  $column . ' ' . $order;
+      $query='select * from treatment ORDER BY ' .  $column . ' ' . $order;
     }
     return $conn->query($query);
   }
-  public static function getByValue( $value, mysqli $conn)
+  public static function getByValue( $value, mysqli $conn, $column=null,$order='ASC')
   {
-    $query="select * from treatment where clientsName Like '%".$value."%' or clientsPhone Like '%".$value."%' or date Like '%".$value."%' or time Like '%".$value."%' or treatment_type in (select id from treatment_type where name Like '%".$value."%') ;";
+    $query="select * from treatment where clientsName Like '%".$value."%' or clientsPhone Like '%".$value."%' or date Like '%".$value."%' or time Like '%".$value."%' or treatment_type in (select id from treatment_type where name Like '%".$value."%') ORDER BY " .$column. " $order;";
     return $conn->query($query);
   }
 
 
   
+  
 
 }
+
 
 ?>

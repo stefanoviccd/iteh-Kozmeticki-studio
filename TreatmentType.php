@@ -17,7 +17,11 @@ class TreatmentType{
     $query="select * from treatment_type where id=$id";
     return $conn->query($query);
   }
-  
+  public static function saveTreatmentType($tr, $conn){
+    $query="insert into treatment_type (name) values ('$tr->name')";
+    return $conn->query($query);
+
+  }
 
 }
 

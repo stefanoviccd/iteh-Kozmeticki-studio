@@ -111,6 +111,32 @@ include 'dbBroker.php'
     </div>
   </div> 
   <!--kraj modala izmeniTermin -->
+  <div class="modal fade" id="dodajUsluguModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Dodaj uslugu</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+         <div class="form-group">
+          <div class="mb-3">
+            <label for="vreme" class="form-label">Naziv</label>
+            <input type="text" class="form-control" id="imeUsluge" value="" >
+                </div>
+        </div>
+  
+          </div>
+          <div class="modal-footer">
+          <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Otkazi</button>
+          <button type="button" class="btn btn-add" onclick="addTreatmentType()">Dodaj uslugu</button>
+        </div>
+        </div>
+        
+      </div>
+    </div>
+  </div> 
+  <!--Kraj modala dodaj uslugu -->
    
       <div class="container center">
           <h1 id="naslov">Cosmetic Studio Mystic</h1>
@@ -119,21 +145,20 @@ include 'dbBroker.php'
      
       <div class=" button-container ">
     <button class="btn-zakazi"  type="button" data-bs-toggle="modal" data-bs-target="#dodajTerminModal">Zakaži tretman</button>
-</div>
+    <button class="btn-zakazi"  type="button" data-bs-toggle="modal" data-bs-target="#dodajUsluguModal">Dodaj uslugu</button>
+    <input type="button" class="btn-zakazi"  value="Pregled" style="margin-left: 48%" onclick="document.location.href='view.php';"/>
+
+  </div>
 
 
-<div class="input-group rounded" style="margin:15px ;">
+<div class="input-group rounded " style="margin:15px ;">
   <input type="search" id="search"  placeholder="Search" aria-label="Search"
   aria-describedby="search-addon" 
   <span class="input-group-text border-0" id="search-addon">
     <i class="fas fa-search"></i>
   </span>
-  <label style="margin-left: 20px;">Sortiraj po: </label>
-  <select style="margin-left: 20px; width: 150px;" id="srtOption">
-  <option value="default" >Podrazumevano</option>
-    <option value="clientsName" >Ime</option>
-    <option value="dateTime">Datum/Vreme</option>
-  </select>
+
+ 
   
   
 
@@ -151,12 +176,12 @@ include 'dbBroker.php'
 
 <script>
   $(document).ready(function(){
-   
-    displayData(sortingKey);
+   var sortKey=$('#sortKey').val();
+    displayData();
     $('#search').keyup(function(){
       var search=$(this).val();
       if(search!=''){
-        displayData(search);
+        displayData( search);
       }
       else{
         displayData();
@@ -228,7 +253,31 @@ function updateTreatment(){
     });
 
    }
+   function addTreatmentType(){
+       var name=$('#imeUsluge').val();
+   $req= $.ajax({
+    url: "addTreatmentType.php",
+    type: 'post',
+    data: {
+        'nameSend': name
+      
+    }
+  
+    
+});
+$req.done(function(res, textStatus, jqXHR){
+    if(res=="Success"){
+        alert("Dodata nova usluga!");
+        console.log("Dodata usluga.");
+        location.reload(true);
+    }else console.log("Usluga nije dodata."+res);
+  
+});
 
+$req.fail(function(jqXHR, textStatus, errorThrown){
+    console.error('Sledeca greska se desila> '+textStatus, errorThrown);
+} )
+   }
 </script>
 
 </body>
