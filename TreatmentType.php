@@ -22,6 +22,15 @@ class TreatmentType{
     return $conn->query($query);
 
   }
+  public static function getAllTypes( mysqli $conn, $column=null,$order='ASC')
+  {
+    if($column==null || $column==""){
+    $query="select * from treatment_type;";}
+    else{
+      $query='select * from treatment_type ORDER BY ' .  $column . ' ' . $order;
+    }
+    return $conn->query($query);
+  }
 
 }
 

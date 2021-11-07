@@ -1,0 +1,19 @@
+.main-div{
+    margin-top: 50px;
+    display: grid !important;
+    grid-template-columns: 50% 50% !important;
+    
+}
+.usluge{
+    color: #f80753;
+    text-align: center !important;
+}
+.table{
+    width: 500px;
+  
+    text-align: center;
+   
+}
+
+
+

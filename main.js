@@ -35,15 +35,70 @@ function addTreatment(){
         console.error('Sledeca greska se desila> '+textStatus, errorThrown);
     } )
 };
-    function displayData(sortingKey,query){
-        var srtKey=sortingKey;
+     function displayTypeData(query){
+        var display=query;
+        $.ajax({
+            url: "displayTypeData.php",
+            type: 'post',
+            data: {
+                'displaySend': display,
+              
+                
+            },
+            success: function(data, status){
+                // we want to display data in our html
+                $('#displayTypeTable').html(data);
+    
+            }
+        });
+    }
+    function updateTreatment(){
+        var name=$("izmeniip").val();
+        var tel=$("#izmenitelefon").val();
+        var dat=$("#izmenidatum").val();
+        var vreme=$("#izmenivreme").val();
+        var id=$('#hidden').val();
+        var typeID=$('$izmenitrmn').val();
+   
+    
+    
+        $.ajax({
+            url: "updateTreatment.php",
+            type: 'post',
+            data: {
+                'idSend': id,
+                'nameSend': name,
+                'telSend': tel,
+                'datSend': dat,
+                'timeSend': vreme,
+                'typeIDSend': typeID
+                
+            },
+            success:function(data,status){
+                displayData();
+                
+                
+    
+            },
+            
+        });
+       
+    
+    
+
+
+
+
+     }
+    function displayData(query){
+ 
         var display=query;
         $.ajax({
             url: "display.php",
             type: 'post',
             data: {
                 'displaySend': display,
-                'sortKey': srtKey
+              
                 
             },
             success: function(data, status){

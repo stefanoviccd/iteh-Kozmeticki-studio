@@ -176,7 +176,7 @@ include 'dbBroker.php'
 
 <script>
   $(document).ready(function(){
-   var sortKey=$('#sortKey').val();
+
     displayData();
     $('#search').keyup(function(){
       var search=$(this).val();
@@ -188,6 +188,8 @@ include 'dbBroker.php'
       }
     });
 });
+
+
 function getDetails(id){
    
    $.post("updateInfo.php", {id: id}, function(data, status){
