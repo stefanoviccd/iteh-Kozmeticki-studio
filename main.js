@@ -90,6 +90,7 @@ function addTreatment(){
 
 
      }
+
     function displayData(query){
  
         var display=query;

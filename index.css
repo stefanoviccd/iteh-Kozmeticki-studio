@@ -2,7 +2,7 @@
 
 .btn-zakazi{
     width: 200px;
-    height: 50px;
+    height: 50px !important;
     background-color: #a8edea;
     border: 2px solid #ffa9c4;
     margin-left: 1%;
@@ -13,12 +13,14 @@
 }
 .btn-cancel{
     background-color:#ffa9c4; 
+    padding: 2px;
     width: 100px;
     color: white;
 }
 .btn-add{
     background-color:#a8edea;
     width: 100px;
+    
     padding: 2px;
     color: white;
 }
@@ -40,6 +42,7 @@ select{
 }
 .btn-update{
     width: 50px !important;
+    
     background-color:#00cec3 !important;
     margin-right:15px;
 }

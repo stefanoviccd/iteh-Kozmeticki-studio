@@ -19,7 +19,7 @@ extract($_POST);
 
   
  $num=1;
-    $table='<table class="table " id="sortTable" style="background-color:#a8edea;"  id="dtOrderExample">
+    $table='<table class="table " id="sortTable" style="background-color:#a8edea;  box-shadow: 3px 3px 10px grey;"  id="dtOrderExample">
     <thead>
       <tr>
         <th scope="col" >Sl no</th>
@@ -29,7 +29,7 @@ extract($_POST);
         <th><a class="column_sort" id="time" data-order="'.$order.'" href="#">Time</a></th>
         <th scope="col">Treatment type</th>
         <th scope="col" data-order="desc" style="padding-left: 67px;">Operations</th>
-        <th scope="col" data-order="desc">Done</th>
+        
       </tr>
     </thead>'; 
     
@@ -55,7 +55,7 @@ extract($_POST);
         <button class="btn btn-update"  type="button"  onclick="getDetails('.$id.')" style="width:80px !important; height:30px;background-color:#00cec3; margin-top:1px; color:white;">Izmeni</button>
         <button class="btn btn-delete"  style="width:80px !important;height:30px; background-color:#00cec3; margin-top:1px; color:white;" onclick="deleteTreatment('.$id.')">Odriši</button>
        </td>
-       <td> <button class="btn btn-delete" onclick="deleteUser('.$id.')" style="width:80px !important;height:30px; background-color:#fc578b; margin-top:1px; color:white;">Postavi</button></td>
+     
         
       </tr>';
       $num++;

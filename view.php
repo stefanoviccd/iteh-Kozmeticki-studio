@@ -37,7 +37,7 @@ require "dbBroker.php";
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Otkazi</button>
-          <button type="button" class="btn btn-add" onclick="updateTreatment()">Sacuvaj tretman</button>
+          <button type="button" class="btn btn-add" onclick="updateTreatmentType()">Izmeni</button>
         </div>
       </div>
     </div>
@@ -74,7 +74,7 @@ require "dbBroker.php";
                             echo "<tr>
           <td>$row[id]</td>
           <td>$row[name]</td>
-          <td>cena</td>
+          <td>$row[price]</td>
           <td> <button class=' btn btn-update' onclick='getTypeDetails($row[id]);' style='width:80px !important;height:30px; background-color:#fc578b; margin-top:1px; color:white;'>Izmeni</button>
           <button class=' btn btn-delete' onclick='deleteTreatmentType($row[id]);' style='width:80px !important;height:30px; background-color:#fc578b; margin-top:1px; color:white;'>Obriši</button></td>
           </tr>
@@ -129,6 +129,9 @@ require "dbBroker.php";
        $('#hidden').val(id);
      $('#izmeninaziv').val(treatmentid.name);
        $('#izmenicenu').val(treatmentid.price);
+       $('#hidden').val(id);
+       
+
       
 
 
@@ -136,6 +139,59 @@ require "dbBroker.php";
    $('#izmeniTModal').modal("show");
 
         }
+        
+     function updateTreatmentType(){
+        var name=$("#izmeninaziv").val();
+        var price=$("#izmenicenu").val();
+        var id=$('#hidden').val();
+        console.log(name);
+        console.log(price);
+        console.log(id);
+        
+    
+    
+         $req=$.ajax({
+            url: "updateTreatmentType.php",
+            type: 'post',
+            data: {
+                'idSend': id,
+                'nameSend': name,
+                'priceSend': price,
+                
+                
+            },
+            success:function(data,status){
+               
+                
+    
+            },
+            
+        });
+        $req.done(function(res, textStatus, jqXHR) {
+                if (res == "Success") {
+                    alert("Tretman uspešno izmenjen!");
+                    console.log("Izmenjen tretman");
+                    location.reload(true);
+                   
+
+                } else {
+                    console.log("Tretman nije izmenjen " + res);
+                    alert("Operacije javila grešku!");
+                }
+
+            });
+
+            $req.fail(function(jqXHR, textStatus, errorThrown) {
+                console.error('Sledeca greska se desila> ' + textStatus, errorThrown);
+            })
+       
+    
+    
+
+
+
+
+     }
     </script>
 </body>
 
