@@ -27,7 +27,7 @@ function addTreatment(){
             alert("Tretman uspešno zakazan!");
             console.log("Dodat tretman");
             location.reload(true);
-        }else console.log("Kolokvijum nije dodat "+res);
+        }else console.log("Tretman nije dodat "+res);
       
     });
 
@@ -98,6 +98,8 @@ function addTreatment(){
             type: 'post',
             data: {
                 'displaySend': display,
+       
+             
               
                 
             },
@@ -156,5 +158,5 @@ function addTreatment(){
         }
     });
 
-   }
-   
+   };
+  

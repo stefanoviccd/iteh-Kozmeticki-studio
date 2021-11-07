@@ -9,7 +9,7 @@ include 'dbBroker.php'
     <meta name="viewport" content="width=<div class="overlay">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="logIn.css">
-        <link rel="stylesheet" href="index.css">
+     <link rel="stylesheet" href="index.css">
        
     <title>Mystic studio</title>
 </head>
@@ -121,8 +121,12 @@ include 'dbBroker.php'
         <div class="modal-body">
          <div class="form-group">
           <div class="mb-3">
-            <label for="vreme" class="form-label">Naziv</label>
+            <label for="imeUsluge" class="form-label">Naziv</label>
             <input type="text" class="form-control" id="imeUsluge" value="" >
+                </div>
+                <div class="mb-3">
+            <label for="cenaUsluge" class="form-label">Cena</label>
+            <input type="text" class="form-control" id="cenaUsluge" value="" >
                 </div>
         </div>
   
@@ -151,12 +155,13 @@ include 'dbBroker.php'
   </div>
 
 
-<div class="input-group rounded " style="margin:15px ;">
+<div class="input-group rounded " style="margin:15px ; align-items: center;">
   <input type="search" id="search"  placeholder="Search" aria-label="Search"
   aria-describedby="search-addon" 
   <span class="input-group-text border-0" id="search-addon">
     <i class="fas fa-search"></i>
   </span>
+  
 
  
   
@@ -173,10 +178,12 @@ include 'dbBroker.php'
      <!--Da bi radili modali samo ovo ukljucila -->
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
 <script>
+
   $(document).ready(function(){
+   
     displayData();
+  
     $('#search').keyup(function(){
       var search=$(this).val();
       if(search!=''){
@@ -256,11 +263,13 @@ function updateTreatment(){
    }
    function addTreatmentType(){
        var name=$('#imeUsluge').val();
+       var price=$('#cenaUsluge').val();
    $req= $.ajax({
     url: "addTreatmentType.php",
     type: 'post',
     data: {
-        'nameSend': name
+        'nameSend': name,
+        'priceSend': price
       
     }
   
@@ -279,6 +288,40 @@ $req.fail(function(jqXHR, textStatus, errorThrown){
     console.error('Sledeca greska se desila> '+textStatus, errorThrown);
 } )
    }
+   function sortValues(){
+     var sortKey=$('#sortKey').val();
+ 
+   }
+   $(document).ready(function(){  
+      $(document).on('click', '.column_sort', function(){  
+           var column_name = $(this).attr("id");  
+           var order = $(this).data("order");  
+           var arrow = '';  
+           //glyphicon glyphicon-arrow-up  
+           //glyphicon glyphicon-arrow-down  
+           if(order == 'desc')  
+           {  
+                arrow = '&nbsp;<span class="glyphicon glyphicon-arrow-down"></span>';  
+              
+           }  
+           else  
+           {  
+                arrow = '&nbsp;<span class="glyphicon glyphicon-arrow-up"></span>';  
+         
+           }  
+         
+           $.ajax({  
+                url:"sort.php",  
+                method:"POST",  
+                data:{column_name:column_name, order:order},  
+                success:function(data)  
+                {  
+                     $('#displayTable').html(data);  
+                     $('#'+column_name+'').append(arrow);  
+                }  
+           })  
+      });  
+ });  
 </script>
 
 </body>

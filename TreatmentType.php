@@ -3,13 +3,15 @@
 class TreatmentType{
   public $id;
   public $name;
+  public $price;
 
   //definisemo konstruktor
-  public function __construct($id=null, $name=null)
+  public function __construct($id=null, $name=null, $price=null)
   
   {
       $this->id=$id;
       $this->name=$name;
+      $this->price=$price;
     
   }
 
@@ -18,7 +20,7 @@ class TreatmentType{
     return $conn->query($query);
   }
   public static function saveTreatmentType($tr, $conn){
-    $query="insert into treatment_type (name) values ('$tr->name')";
+    $query="insert into treatment_type (name, price) values ('$tr->name', '$tr->price' )";
     return $conn->query($query);
 
   }
@@ -31,7 +33,11 @@ class TreatmentType{
     }
     return $conn->query($query);
   }
-
+public static function deleteTreatment(mysqli $conn, $id){
+  $query="delete  from treatment_type where id=$id";
+    return $conn->query($query);
 }
+}
+
 
 ?>

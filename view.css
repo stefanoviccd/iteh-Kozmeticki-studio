@@ -3,16 +3,20 @@
     display: grid !important;
     grid-template-columns: 50% 50% !important;
     
+    
 }
 .usluge{
     color: #f80753;
     text-align: center !important;
 }
 .table{
-    width: 500px;
+    width: 700px !important;
   
     text-align: center;
    
+}
+.div-table{
+    width: 700px !important;
 }
 
 

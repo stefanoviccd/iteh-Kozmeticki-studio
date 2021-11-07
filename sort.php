@@ -6,32 +6,33 @@ include "TreatmentType.php";
 extract($_POST);
 
  
-  $num=1;
-    $table='<table class="table " id="sortTable" style="background-color:#a8edea;  box-shadow: 3px 3px 10px grey;"  id="dtOrderExample" ">
+ 
+    $order=$_POST["order"];
+    if($order=="asc"){
+        $order="desc";
+    }
+    else{
+        $order="asc";
+    }
+    $query = "SELECT * FROM treatment ORDER BY ".$_POST["column_name"]." ".$_POST["order"]."";  
+    $result=$conn->query($query);
+
+  
+ $num=1;
+    $table='<table class="table " id="sortTable" style="background-color:#a8edea;"  id="dtOrderExample">
     <thead>
       <tr>
         <th scope="col" >Sl no</th>
-        <th><a class="column_sort" id="clientsName" data-order="desc" href="#">Name</a></th>
+        <th><a class="column_sort" id="clientsName" data-order="'.$order.'" href="#">Name</a></th>
         <th scope="col" >Phone</th>
-        <th><a class="column_sort" id="date" data-order="desc" href="#">Date</a></th>
-        <th><a class="column_sort" id="time" data-order="desc" href="#">Time</a></th>
+        <th><a class="column_sort" id="date" data-order="'.$order.'" href="#">Date</a></th>
+        <th><a class="column_sort" id="time" data-order="'.$order.'" href="#">Time</a></th>
         <th scope="col">Treatment type</th>
         <th scope="col" data-order="desc" style="padding-left: 67px;">Operations</th>
         <th scope="col" data-order="desc">Done</th>
       </tr>
     </thead>'; 
- 
-
-    $result=Treatment::getAllTreatment($conn);
-
-  
-
-      if(isset($_POST['displaySend'])){
-      $search=mysqli_real_escape_string($conn, $_POST['displaySend']);
-     $result=Treatment::getByValue($search, $conn);
-     
-    }
-    else{$result=Treatment::getAllTreatment($conn);}
+    
   
     while($row=mysqli_fetch_assoc($result)){
         //concaternation
