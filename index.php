@@ -146,7 +146,7 @@ include 'dbBroker.php'
       <div class=" button-container ">
     <button class="btn-zakazi"  type="button" data-bs-toggle="modal" data-bs-target="#dodajTerminModal">Zakaži tretman</button>
     <button class="btn-zakazi"  type="button" data-bs-toggle="modal" data-bs-target="#dodajUsluguModal">Dodaj uslugu</button>
-    <input type="button" class="btn-zakazi"  value="Pregled" style="margin-left: 48%" onclick="document.location.href='view.php';"/>
+    <input type="button" class="btn-zakazi"  value="Pregled usluga" style="margin-left: 48%" onclick="document.location.href='view.php';"/>
 
   </div>
 
@@ -176,12 +176,11 @@ include 'dbBroker.php'
 
 <script>
   $(document).ready(function(){
-
     displayData();
     $('#search').keyup(function(){
       var search=$(this).val();
       if(search!=''){
-        displayData( search);
+        displayData(search);
       }
       else{
         displayData();

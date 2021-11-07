@@ -20,7 +20,7 @@ extract($_POST);
         <th scope="col">Done</th>
       </tr>
     </thead>';
-    
+    $result=Treatment::getAllTreatment($conn);
 
       if(isset($_POST['displaySend'])){
       $search=mysqli_real_escape_string($conn, $_POST['displaySend']);
@@ -28,17 +28,6 @@ extract($_POST);
     }
     else{$result=Treatment::getAllTreatment($conn);}
   
-
-
-  if(isset($_POST['displaySend'])){
-    $search=mysqli_real_escape_string($conn, $_POST['displaySend']);
-   $result=Treatment::getByValue($search, $conn);
-  }
-  else{$result=Treatment::getAllTreatment($conn);}
-
-
-    
-
     while($row=mysqli_fetch_assoc($result)){
         //concaternation
         $id=$row["id"];
