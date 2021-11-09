@@ -95,15 +95,25 @@ include "TreatmentType.php";
             </div>
           </div>
           <div class="mb-3 sel" id="select-div">
-            <label for="trmn" class="form-label">Tretman:</label>
+            <label for="izmenitrmn" class="form-label">Tretman:</label>
+            <select name="izmenitrmn" id="izmenitrmn">
+            <?php
+
+              $query = "SELECT * FROM `treatment_type`";
+              $result = mysqli_query($conn, $query);
+              while ($row = mysqli_fetch_array($result))
+                // Add a new option to the combo-box
+                echo "<option value='$row[id]'>$row[name]</option>"; ?>
+
+            </select>
 
             <input type="hidden" id="hidden">
           </div>
-        </div>
+       
         <div class="modal-footer">
           <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Otkazi</button>
           <button type="button" class="btn btn-add" onclick="updateTreatment()">Sačuvaj izmene</button>
-        </div>
+        </div> </div>
       </div>
     </div>
   </div>
