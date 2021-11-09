@@ -8,7 +8,7 @@ if(isset($_POST['deleteSend'])){
 
 }
     
-    $status=TreatmentType::deleteTreatment($conn, $delete);
+    $status=TreatmentType::deleteTreatmentType($conn, $delete);
     if($status){
         echo 'Success';
     }else{

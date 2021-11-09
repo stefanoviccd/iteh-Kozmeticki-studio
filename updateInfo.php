@@ -1,11 +1,12 @@
 <?php
 include "dbBroker.php";
+include "Treatment.php";
 // TO EXTRACT ALL SEND VARIABLES
 extract($_POST);
 if(isset($_POST['id'])){
 $unique=$_POST['id'];
-    $sql="SELECT  * FROM `treatment` WHERE id=$unique";
-    $result=mysqli_query($conn, $sql);
+  
+    $result=Treatment::getTreatmentById($conn, $unique);
     
     
     $response=array();

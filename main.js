@@ -1,4 +1,5 @@
 
+//zakazivanje termina
 function addTreatment(){
     var clientsName=$("#imeprezime").val();
     var date=$("#datum").val();
@@ -24,17 +25,19 @@ function addTreatment(){
     });
     $req.done(function(res, textStatus, jqXHR){
         if(res=="Success"){
-            alert("Tretman uspešno zakazan!");
-            console.log("Dodat tretman");
+            alert("Termin uspešno zakazan!");
             location.reload(true);
-        }else console.log("Tretman nije dodat "+res);
+        }else{ console.log("Termin nije zakazan -  "+res);
+    alert("Neka od polja nisu ispravno popunjena. Pokušajte ponovo.");
+    }
       
     });
 
     $req.fail(function(jqXHR, textStatus, errorThrown){
-        console.error('Sledeca greska se desila> '+textStatus, errorThrown);
+        console.error('Desila se greška >> '+textStatus, errorThrown);
     } )
 };
+//prikazivanje svih usluga
      function displayTypeData(query){
         var display=query;
         $.ajax({
@@ -46,12 +49,13 @@ function addTreatment(){
                 
             },
             success: function(data, status){
-                // we want to display data in our html
+                // prikazuje podatke unutar navedenog diva
                 $('#displayTypeTable').html(data);
     
             }
         });
     }
+    //izmena termina
     function updateTreatment(){
         var name=$("izmeniip").val();
         var tel=$("#izmenitelefon").val();
@@ -62,7 +66,7 @@ function addTreatment(){
    
     
     
-        $.ajax({
+        $req=$.ajax({
             url: "updateTreatment.php",
             type: 'post',
             data: {
@@ -73,16 +77,25 @@ function addTreatment(){
                 'timeSend': vreme,
                 'typeIDSend': typeID
                 
-            },
-            success:function(data,status){
-                displayData();
-                
-                
-    
-            },
+            }
+           
             
         });
-       
+        $req.done(function(res, textStatus, jqXHR){
+            if(res=="Success"){
+            
+                alert("Termin uspešno izmenjen!"); 
+                  displayData();
+              
+            }else{ console.log("Termin nije izmenjen -  "+res);
+        alert("Neka od polja nisu ispravno popunjena. Pokušajte ponovo.");
+        }
+          
+        });
+    
+        $req.fail(function(jqXHR, textStatus, errorThrown){
+            console.error('Desila se greška >> '+textStatus, errorThrown);
+        } )
     
     
 
@@ -135,16 +148,19 @@ function addTreatment(){
             },
             success:function(data,status){
                 displayData();
+              
                 
                 
     
             },
             
         });
-       
+        
     
     
     }
+    
+   
    function deleteTreatment(id){
     $.ajax({
         url: "deleteTreatment.php",
@@ -155,6 +171,7 @@ function addTreatment(){
         success: function(data, status){
             // we want to display data in our html
             displayData();
+           location.reload();
 
         }
     });

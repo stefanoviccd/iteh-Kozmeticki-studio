@@ -111,6 +111,7 @@ require "dbBroker.php";
                     alert("Tretman uspešno obrisan!");
                     console.log("Obrisan tretman");
                     location.reload(true);
+                    document.reload(true);
 
                 } else {
                     console.log("Tretman nije obrisan " + res);

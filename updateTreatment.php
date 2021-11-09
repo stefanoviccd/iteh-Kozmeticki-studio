@@ -1,14 +1,19 @@
 <?php
 include "dbBroker.php";
+include "Treatment.php";
 // TO EXTRACT ALL SEND VARIABLES
 extract($_POST);
 
 if(isset($_POST['idSend']) && isset($_POST['nameSend']) && isset($_POST['datSend']) && isset($_POST['telSend']) && isset($_POST['timeSend']) &&isset($_POST['typeIDSend'])){
-    $sql="update treatment set clientsName='$nameSend', clientsPhone='$telSend', date='$datSend', time='$timeSend', treatment_type=$typeIDSend WHERE id=$idSend";
-    $result=mysqli_query($conn, $sql);
-}
-else {
+  
+    $result=Treatment::updateTreatment($conn, $_POST['idSend'], $_POST['nameSend'], $_POST['telSend'], $_POST['datSend'], $_POST['timeSend'], $_POST['typeIDSend']);
+    if($result){
+        echo "Success";
+    }
+    else {
     echo "Failed";
+}
+
 }
 
 

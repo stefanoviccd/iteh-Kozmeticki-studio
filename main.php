@@ -47,6 +47,7 @@ include 'dbBroker.php'
             <label for="email" class="form-label">Tretman:</label>
             <select name="trmn" id="trmn">
               <?php
+              
               $query = "SELECT * FROM `treatment_type`";
               $result = mysqli_query($conn, $query);
               while ($row = mysqli_fetch_array($result))
@@ -150,7 +151,7 @@ include 'dbBroker.php'
   </div>
 
   <div class=" button-container ">
-    <button class="btn-zakazi" type="button" data-bs-toggle="modal" data-bs-target="#dodajTerminModal">Zakaži tretman</button>
+    <button class="btn-zakazi" id="btn-zakazi" type="button" data-bs-toggle="modal" data-bs-target="#dodajTerminModal">Zakaži tretman</button>
     <button class="btn-zakazi" type="button" data-bs-toggle="modal" data-bs-target="#dodajUsluguModal">Dodaj uslugu</button>
     <input type="button" class="btn-zakazi" style="margin-left: 48%;" value="Pregled usluga" onclick="document.location.href='view.php';" />
 
@@ -213,10 +214,9 @@ include 'dbBroker.php'
       var id = $('#hidden').val();
       var typeID = $('#izmenitrmn').val();
 
-      console.log(name);
-      console.log(id);
+      
 
-      $.ajax({
+      $req=$.ajax({
         url: "updateTreatment.php",
         type: 'post',
         data: {
@@ -227,36 +227,91 @@ include 'dbBroker.php'
           'timeSend': vreme,
           'typeIDSend': typeID
 
-        },
-        success: function(data, status) {
-          displayData();
-
-
-
-        },
-
+        }
       });
+      $req.done(function(res, textStatus, jqXHR){
+            if(res=="Success"){
+            
+                alert("Termin uspešno izmenjen!"); 
+                location.reload();
+                  displayData();
+              
+            }else{ console.log("Termin nije izmenjen -  "+res);
+        alert("Neka od polja nisu ispravno popunjena. Pokušajte ponovo.");
+        }
+          
+        });
+    
+        $req.fail(function(jqXHR, textStatus, errorThrown){
+            console.error('Desila se greška >> '+textStatus, errorThrown);
+        } )
+    
+    
+
+
+
+
+     }
+
+    function displayData(query){
+ 
+        var display=query;
+        $.ajax({
+            url: "display.php",
+            type: 'post',
+            data: {
+                'displaySend': display,
+       
+             
+              
+                
+            },
+            success: function(data, status){
+                // we want to display data in our html
+                $('#displayTable').html(data);
+    
+            }
+        });
 
 
 
     }
 
     function deleteTreatment(id) {
-      $.ajax({
+     if(confirm("Tretman ce biti obrisan. Da li ste sigurni da zelite da nastavite?")) {
+      
+      $req=$.ajax({
         url: "deleteTreatment.php",
         type: 'post',
         data: {
           'deleteSend': id
-        },
-        success: function(data, status) {
-          // we want to display data in our html
-          displayData();
-
         }
+        
+      });
+      $req.done(function(res, textStatus, jqXHR) {
+        if (res == "Success") {     
+          alert("Tretman obrisan!");  
+          displayData();
+        
+          console.log("Obrisan tretman.");
+      
+  
+        } 
+        
+        else {
+          alert("Tretman nije obrisan." + res);
+         
+       }
+ 
       });
 
-    }
+      $req.fail(function(jqXHR, textStatus, errorThrown) {
+        console.error('Sledeca greska se desila> ' + textStatus, errorThrown);
+      })
 
+    }
+  }
+//Dodavanje nove usluge
     function addTreatmentType() {
       var name = $('#imeUsluge').val();
       var price = $('#cenaUsluge').val();
@@ -272,23 +327,32 @@ include 'dbBroker.php'
 
       });
       $req.done(function(res, textStatus, jqXHR) {
-        if (res == "Success") {
-          alert("Dodata nova usluga!");
+        if (res == "Success") {     
+          alert("Dodata nova usluga!");  
+        
           console.log("Dodata usluga.");
-          location.reload(true);
-        } else console.log("Usluga nije dodata." + res);
-
+      
+  
+        } 
+        
+        else {
+          alert("Neka polja nisu ispravno popunjena. Pokušajte ponovo.");
+         
+       }
+ 
       });
 
       $req.fail(function(jqXHR, textStatus, errorThrown) {
         console.error('Sledeca greska se desila> ' + textStatus, errorThrown);
       })
     }
+  
 
     function sortValues() {
       var sortKey = $('#sortKey').val();
 
     }
+   
     $(document).ready(function() {
       $(document).on('click', '.column_sort', function() {
         var column_name = $(this).attr("id");
@@ -318,6 +382,8 @@ include 'dbBroker.php'
         })
       });
     });
+  
+   
   </script>
 
 </body>

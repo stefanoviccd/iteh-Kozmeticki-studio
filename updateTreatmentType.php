@@ -1,5 +1,6 @@
 <?php
 include "dbBroker.php";
+include "TreatmentType.php";
 // TO EXTRACT ALL SEND VARIABLES
 extract($_POST);
 
@@ -8,8 +9,8 @@ if(isset($_POST['idSend']) && isset($_POST['nameSend']) && isset($_POST['priceSe
 
     $priceSend=$_POST['priceSend'];
     
-    $sql="update treatment_type set name='$nameSend', price=$priceSend WHERE id=$idSend";
-    $status=mysqli_query($conn, $sql);
+    
+    $status=TreatmentType::updateTreatmentType($conn, $idSend, $nameSend, $priceSend);
     if($status){
         echo 'Success';
     }else{

@@ -1,10 +1,15 @@
 <?php
 include "dbBroker.php";
+include "Treatment.php";
 // TO EXTRACT ALL SEND VARIABLES
 extract($_POST);
 if(isset($_POST['deleteSend'])){
-    $sql="DELETE  FROM `treatment` WHERE id=$deleteSend;";
-    $result=mysqli_query($conn, $sql);
+   
+    $result=Treatment::deleteTreatment($conn, $_POST['deleteSend']);
+    if($result){
+        echo "Success";
+    }
+    else echo "Failed";
 }
 
 ?>

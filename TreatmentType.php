@@ -33,11 +33,17 @@ class TreatmentType{
     }
     return $conn->query($query);
   }
-public static function deleteTreatment(mysqli $conn, $id){
+public static function deleteTreatmentType(mysqli $conn, $id){
   $query="delete  from treatment_type where id=$id";
     return $conn->query($query);
 }
+public static function updateTreatmentType(mysqli $conn, $id, $name, $price){
+  $query="update treatment_type set name='$name', price=$price WHERE id=$id";
+    return $conn->query($query);
 }
 
+
+
+}
 
 ?>

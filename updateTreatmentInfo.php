@@ -1,14 +1,13 @@
 <?php
 include "dbBroker.php";
+include "TreatmentType.php";
 // TO EXTRACT ALL SEND VARIABLES
 extract($_POST);
 if(isset($_POST['id'])){
 $unique=$_POST['id'];
-    $sql="SELECT  * FROM `treatment_type` WHERE id=$unique";
-    $result=mysqli_query($conn, $sql);
-    
-    
-    $response=array();
+  
+    $result=TreatmentType::selectById($unique, $conn);
+     $response=array();
     //we want this in array form
     
     while($row=mysqli_fetch_assoc($result)){
