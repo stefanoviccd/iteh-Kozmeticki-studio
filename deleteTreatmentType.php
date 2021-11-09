@@ -4,10 +4,11 @@ include "TreatmentType.php";
 
 if(isset($_POST['deleteSend'])){
     $delete=$_POST['deleteSend'];
+    $ttype=new TreatmentType($_POST['deleteSend']);
 
 }
     
-    $status=TreatmentType::deleteTreatmentType($conn, $delete);
+    $status=TreatmentType::deleteTreatmentType($conn, $ttype);
     if($status){
         echo 'Success';
         

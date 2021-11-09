@@ -5,6 +5,7 @@ include "Treatment.php";
 extract($_POST);
 if(isset($_POST['id'])){
 $unique=$_POST['id'];
+
   
     $result=Treatment::getTreatmentById($conn, $unique);
     

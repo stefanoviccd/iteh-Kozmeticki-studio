@@ -52,15 +52,15 @@ class Treatment{
     $query="select * from treatment where clientsName Like '%".$value."%' or clientsPhone Like '%".$value."%' or date Like '%".$value."%' or time Like '%".$value."%' or treatment_type in (select id from treatment_type where name Like '%".$value."%')";
     return $conn->query($query);}
 
-    public static function deleteTreatment(mysqli $conn, $id){
-      $query="DELETE  FROM `treatment` WHERE id=".$id;
+    public static function deleteTreatment(mysqli $conn, $tr){
+      $query="DELETE  FROM `treatment` WHERE id=$tr->id";
      
     return $conn->query($query);
 
     }
 
-    public static function updateTreatment($conn,$id, $name, $phone, $date, $time, $ttype){
-    $query="update `treatment` set clientsName='".$name."', clientsPhone='".$phone."', date='".$date."', time='".$time."', treatment_type=".$ttype." WHERE id=".$id;
+    public static function updateTreatment($conn,$tr){
+    $query="update `treatment` set clientsName='$tr->clientsName', clientsPhone='$tr->clientsPhone', date='$tr->date', time='$tr->time', treatment_type=$tr->treatment_type WHERE id=$tr->id";
      
     return $conn->query($query);
     

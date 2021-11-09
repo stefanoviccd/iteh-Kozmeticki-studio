@@ -9,7 +9,8 @@ if(isset($_POST['idSend']) && isset($_POST['nameSend']) && isset($_POST['datSend
         echo "Failed";
     }
     else{
-    $result=Treatment::updateTreatment($conn, $_POST['idSend'], $_POST['nameSend'], $_POST['telSend'], $_POST['datSend'], $_POST['timeSend'], $_POST['typeIDSend']);
+        $treatment=new Treatment($_POST['idSend'], $_POST['nameSend'], $_POST['telSend'], $_POST['datSend'], $_POST['timeSend'], $_POST['typeIDSend']);
+    $result=Treatment::updateTreatment($conn, $treatment);
     if($result){
         echo "Success";
     }

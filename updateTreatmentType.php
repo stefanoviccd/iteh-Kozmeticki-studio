@@ -12,8 +12,8 @@ if (isset($_POST['idSend']) && isset($_POST['nameSend']) && isset($_POST['priceS
 
         $priceSend = $_POST['priceSend'];
 
-
-        $status = TreatmentType::updateTreatmentType($conn, $idSend, $nameSend, $priceSend);
+$ttype=new TreatmentType($idSend, $nameSend, $priceSend);
+        $status = TreatmentType::updateTreatmentType($conn, $ttype);
         if ($status) {
             echo 'Success';
         } else {
