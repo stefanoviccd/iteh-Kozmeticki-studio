@@ -18,6 +18,3 @@ $unique=$_POST['id'];
         $response['status']=200;
         $response['message']="Data not found";
     }
-
-
-?>

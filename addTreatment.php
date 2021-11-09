@@ -2,8 +2,8 @@
 require "dbBroker.php";
 require "Treatment.php";
 require "TreatmentType.php";
-// TO EXTRACT ALL SEND VARIABLES
-extract($_POST);
+
+
 if(isset($_POST['nameSend']) && isset($_POST['dateSend']) && isset($_POST['phoneSend']) && isset($_POST['timeSend']) && isset($_POST['ttypeSend'])){
    if($_POST['nameSend']=="" || $_POST['phoneSend']=="" || $_POST['dateSend']=="" || $_POST['timeSend']=="" ){
        echo "Failed";
@@ -20,5 +20,3 @@ if(isset($_POST['nameSend']) && isset($_POST['dateSend']) && isset($_POST['phone
     }
 }
 }
-
-?>

@@ -45,5 +45,3 @@ public static function updateTreatmentType(mysqli $conn, $id, $name, $price){
 
 
 }
-
-?>

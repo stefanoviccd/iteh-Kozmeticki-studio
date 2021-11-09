@@ -1,13 +1,15 @@
 <?php
-include 'dbBroker.php'
+include 'dbBroker.php';
+include "TreatmentType.php";
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <link rel="stylesheet" href="logIn.css">
   <link rel="stylesheet" href="index.css">
@@ -46,8 +48,8 @@ include 'dbBroker.php'
           <div class="mb-3 sel">
             <label for="email" class="form-label">Tretman:</label>
             <select name="trmn" id="trmn">
-              <?php
-              
+            <?php
+
               $query = "SELECT * FROM `treatment_type`";
               $result = mysqli_query($conn, $query);
               while ($row = mysqli_fetch_array($result))
@@ -92,17 +94,9 @@ include 'dbBroker.php'
               <input type="time" class="form-control" id="izmenivreme" value="">
             </div>
           </div>
-          <div class="mb-3 sel">
+          <div class="mb-3 sel" id="select-div">
             <label for="trmn" class="form-label">Tretman:</label>
-            <select name="trmn" id="izmenitrmn">
-              <?php
-              $query = "SELECT * FROM `treatment_type`";
-              $result = mysqli_query($conn, $query);
-              while ($row = mysqli_fetch_array($result))
-                // Add a new option to the combo-box
-                echo "<option id='$row[id]' value='$row[id]'>$row[name]</option>"; ?>
 
-            </select>
             <input type="hidden" id="hidden">
           </div>
         </div>
@@ -151,7 +145,7 @@ include 'dbBroker.php'
   </div>
 
   <div class=" button-container ">
-    <button class="btn-zakazi" id="btn-zakazi" type="button" data-bs-toggle="modal" data-bs-target="#dodajTerminModal">Zakaži tretman</button>
+    <button class="btn-zakazi" id="btn-zakazi" type="button" data-bs-toggle="modal"  data-bs-target="#dodajTerminModal">Zakaži tretman</button>
     <button class="btn-zakazi" type="button" data-bs-toggle="modal" data-bs-target="#dodajUsluguModal">Dodaj uslugu</button>
     <input type="button" class="btn-zakazi" style="margin-left: 48%;" value="Pregled usluga" onclick="document.location.href='view.php';" />
 
@@ -188,7 +182,11 @@ include 'dbBroker.php'
     });
 
 
+
+
+
     function getDetails(id) {
+      $.post
 
       $.post("updateInfo.php", {
         id: id
@@ -214,9 +212,9 @@ include 'dbBroker.php'
       var id = $('#hidden').val();
       var typeID = $('#izmenitrmn').val();
 
-      
 
-      $req=$.ajax({
+
+      $req = $.ajax({
         url: "updateTreatment.php",
         type: 'post',
         data: {
@@ -229,89 +227,88 @@ include 'dbBroker.php'
 
         }
       });
-      $req.done(function(res, textStatus, jqXHR){
-            if(res=="Success"){
-            
-                alert("Termin uspešno izmenjen!"); 
-                location.reload();
-                  displayData();
-              
-            }else{ console.log("Termin nije izmenjen -  "+res);
-        alert("Neka od polja nisu ispravno popunjena. Pokušajte ponovo.");
+      $req.done(function(res, textStatus, jqXHR) {
+        if (res == "Success") {
+
+          alert("Termin uspešno izmenjen!");
+          location.reload();
+          displayData();
+
+        } else {
+          console.log("Termin nije izmenjen -  " + res);
+          alert("Neka od polja nisu ispravno popunjena. Pokušajte ponovo.");
         }
-          
-        });
-    
-        $req.fail(function(jqXHR, textStatus, errorThrown){
-            console.error('Desila se greška >> '+textStatus, errorThrown);
-        } )
-    
-    
+
+      });
+
+      $req.fail(function(jqXHR, textStatus, errorThrown) {
+        console.error('Desila se greška >> ' + textStatus, errorThrown);
+      })
 
 
 
 
-     }
 
-    function displayData(query){
- 
-        var display=query;
-        $.ajax({
-            url: "display.php",
-            type: 'post',
-            data: {
-                'displaySend': display,
-       
-             
-              
-                
-            },
-            success: function(data, status){
-                // we want to display data in our html
-                $('#displayTable').html(data);
-    
-            }
-        });
+
+    }
+
+    function displayData(query) {
+
+      var display = query;
+      $.ajax({
+        url: "display.php",
+        type: 'post',
+        data: {
+          'displaySend': display,
+
+
+
+
+        },
+        success: function(data, status) {
+          // we want to display data in our html
+          $('#displayTable').html(data);
+
+        }
+      });
 
 
 
     }
 
     function deleteTreatment(id) {
-     if(confirm("Tretman ce biti obrisan. Da li ste sigurni da zelite da nastavite?")) {
-      
-      $req=$.ajax({
-        url: "deleteTreatment.php",
-        type: 'post',
-        data: {
-          'deleteSend': id
-        }
-        
-      });
-      $req.done(function(res, textStatus, jqXHR) {
-        if (res == "Success") {     
-          alert("Tretman obrisan!");  
-          displayData();
-        
-          console.log("Obrisan tretman.");
-      
-  
-        } 
-        
-        else {
-          alert("Tretman nije obrisan." + res);
-         
-       }
- 
-      });
+      if (confirm("Tretman ce biti obrisan. Da li ste sigurni da zelite da nastavite?")) {
 
-      $req.fail(function(jqXHR, textStatus, errorThrown) {
-        console.error('Sledeca greska se desila> ' + textStatus, errorThrown);
-      })
+        $req = $.ajax({
+          url: "deleteTreatment.php",
+          type: 'post',
+          data: {
+            'deleteSend': id
+          }
 
+        });
+        $req.done(function(res, textStatus, jqXHR) {
+          if (res == "Success") {
+
+            displayData();
+
+            console.log("Obrisan tretman.");
+
+
+          } else {
+            alert("Tretman nije obrisan." + res);
+
+          }
+
+        });
+
+        $req.fail(function(jqXHR, textStatus, errorThrown) {
+          console.error('Sledeca greska se desila> ' + textStatus, errorThrown);
+        })
+
+      }
     }
-  }
-//Dodavanje nove usluge
+    //Dodavanje nove usluge
     function addTreatmentType() {
       var name = $('#imeUsluge').val();
       var price = $('#cenaUsluge').val();
@@ -327,47 +324,41 @@ include 'dbBroker.php'
 
       });
       $req.done(function(res, textStatus, jqXHR) {
-        if (res == "Success") {     
-          alert("Dodata nova usluga!");  
-        
+        if (res == "Success") {
+          alert("Dodata nova usluga!");
+          location.reload(true);
+
           console.log("Dodata usluga.");
-      
-  
-        } 
-        
-        else {
+
+
+        } else {
           alert("Neka polja nisu ispravno popunjena. Pokušajte ponovo.");
-         
-       }
- 
+
+        }
+
       });
 
       $req.fail(function(jqXHR, textStatus, errorThrown) {
         console.error('Sledeca greska se desila> ' + textStatus, errorThrown);
       })
     }
-  
+
 
     function sortValues() {
       var sortKey = $('#sortKey').val();
 
     }
-   
+
     $(document).ready(function() {
       $(document).on('click', '.column_sort', function() {
         var column_name = $(this).attr("id");
         var order = $(this).data("order");
         var arrow = '';
-        //glyphicon glyphicon-arrow-up  
-        //glyphicon glyphicon-arrow-down  
         if (order == 'desc') {
-          arrow = '&nbsp;<span class="glyphicon glyphicon-arrow-down"></span>';
-
+          arrow = ' <span>&#8593</span>';
         } else {
-          arrow = '&nbsp;<span class="glyphicon glyphicon-arrow-up"></span>';
-
+          arrow = ' <span>&#8595</span>';
         }
-
         $.ajax({
           url: "sort.php",
           method: "POST",
@@ -377,13 +368,13 @@ include 'dbBroker.php'
           },
           success: function(data) {
             $('#displayTable').html(data);
-            $('#' + column_name + '').append(arrow);
+            $('#' + column_name).append(arrow);
+
+
           }
         })
       });
     });
-  
-   
   </script>
 
 </body>

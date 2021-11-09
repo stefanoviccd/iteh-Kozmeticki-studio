@@ -14,21 +14,25 @@ extract($_POST);
     else{
         $order="asc";
     }
-    $query = "SELECT * FROM treatment ORDER BY ".$_POST["column_name"]." ".$_POST["order"]."";  
-    $result=$conn->query($query);
-
+    if (isset($_POST['displaySend'])) {
+      $search = mysqli_real_escape_string($conn, $_POST['displaySend']);
+      $result = Treatment::getByValue($search, $conn,$_POST["column_name"],$_POST["order"] );
+    } else {
+      $result = Treatment::getAllTreatment($conn, $_POST["column_name"],$_POST["order"]);
+    }
+ 
   
  $num=1;
     $table='<table class="table " id="sortTable" style="background-color:#a8edea;  box-shadow: 3px 3px 10px grey;"  id="dtOrderExample">
     <thead>
       <tr>
-        <th scope="col" >Sl no</th>
-        <th><a class="column_sort" id="clientsName" data-order="'.$order.'" href="#">Name</a></th>
-        <th scope="col" >Phone</th>
-        <th><a class="column_sort" id="date" data-order="'.$order.'" href="#">Date</a></th>
-        <th><a class="column_sort" id="time" data-order="'.$order.'" href="#">Time</a></th>
-        <th scope="col">Treatment type</th>
-        <th scope="col" data-order="desc" style="padding-left: 67px;">Operations</th>
+        <th scope="col" >Redni Br</th>
+        <th><a class="column_sort" id="clientsName" data-order="'.$order.'" href="#">Ime i prezime</a></th>
+        <th scope="col" >Kontakt</th>
+        <th><a class="column_sort" id="date" data-order="'.$order.'" href="#">Datum</a></th>
+        <th><a class="column_sort" id="time" data-order="'.$order.'" href="#">Vreme</a></th>
+        <th scope="col">Vrsta usluge</th>
+        <th scope="col" data-order="desc" style="padding-left: 67px;">Operacije</th>
         
       </tr>
     </thead>'; 
